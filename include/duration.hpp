@@ -17,6 +17,8 @@ public:
     bool tick();
     bool addTick(int amount);
     void setAlarm(int t);
+
+    void startTimer();
 };
 
 #endif

@@ -2,13 +2,13 @@
 #include <unistd.h>
 #include <assert.h>
 
-Duration::Duration(){
+Duration::Duration(){ //Init the variable
     time = 0;
     alarm = -1;
     alarmHasBeenSet = false;
 }
 
-Duration::~Duration(){}
+Duration::~Duration(){} //Destroy variable
 
 void Duration::setDuration(int t){
     assert(t >= 0); //Precond, can't set a negative time.
@@ -25,8 +25,8 @@ bool Duration::tick(){
 }
 
 bool Duration::addTick(int amount){
-    assert(amount >= 0); //Precond, add a negative time.
-    time += amount;
+    assert(amount >= 0); //Precond, don't add a negative time.
+    time += amount; //Increment time by given amount
     return checkAndUpdateAlarm();
 }
 
@@ -36,7 +36,7 @@ void Duration::setAlarm(int t){
     alarmHasBeenSet = true;
 }
 
-bool Duration::checkAndUpdateAlarm(){
+bool Duration::checkAndUpdateAlarm(){ //return bool for checking alarm condition, and reset alarm if it is reached
     if(time > alarm && alarmHasBeenSet == true){
         alarm = -1;
         alarmHasBeenSet = false;
@@ -44,9 +44,4 @@ bool Duration::checkAndUpdateAlarm(){
     } 
     else return false;
 }
-/*
-while(true){ //Keep running until destroyed
-        sleep(1); //Sleep the thread for one second, when it wakes up, increment time with 1 (second). Rinse repeat
-        time++;
-    }
-    */
+

@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD 14)
 # add cpp files not containing a main function here
 # for example like this:
 # add_library(mylib src/max.cpp src/swap.cpp src/max_sum.cpp)
+
+include_directories(include)
+add_library(mylib SHARED src/duration.cpp)
 target_include_directories(mylib PUBLIC include)
 
 # define executable named main for experimenting and debugging code

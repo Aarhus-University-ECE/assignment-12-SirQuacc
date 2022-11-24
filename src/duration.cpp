@@ -1,43 +1,45 @@
-#include "duration.hpp" //Because it's not compiled, it would need to be moved to this directory
+#include "duration.hpp" 
 #include <unistd.h>
 #include <assert.h>
 
-Duration::Duration(){ //Init the variable
+Duration::Duration(){ //Constructor, setting private variables to default values
     time = 0;
     alarm = -1;
     alarmHasBeenSet = false;
 }
 
-Duration::~Duration(){} //Destroy variable
+Duration::~Duration(){} //Destroy the object, nothing more
 
-void Duration::setDuration(int t){
+Duration::Duration(int t){ //Construct with a specific value, t, for the time variable
     assert(t >= 0); //Precond, can't set a negative time.
     time = t;
+    alarm = -1;
+    alarmHasBeenSet = false;
 }
 
-int Duration::getDuration(){
+int Duration::getDuration(){ //get current time value
     return time;
 }
 
-bool Duration::tick(){
+bool Duration::tick(){ //increment time by 1, return alarm if exceeded
     time++;
     return checkAndUpdateAlarm();
 }
 
-bool Duration::addTick(int amount){
+bool Duration::tick(int amount){ //Increment time by a specific amount, t, return alarm if exceeded
     assert(amount >= 0); //Precond, don't add a negative time.
-    time += amount; //Increment time by given amount
+    time += amount; 
     return checkAndUpdateAlarm();
 }
 
-void Duration::setAlarm(int t){
+void Duration::setAlarm(int t){ //Set the alarm for a specific time, t.
     assert(t >= time); //Can't have an alarm in the past
     alarm = t;
     alarmHasBeenSet = true;
 }
 
 bool Duration::checkAndUpdateAlarm(){ //return bool for checking alarm condition, and reset alarm if it is reached
-    if(time > alarm && alarmHasBeenSet == true){
+    if(alarmHasBeenSet == true && time > alarm){
         alarm = -1;
         alarmHasBeenSet = false;
         return true;

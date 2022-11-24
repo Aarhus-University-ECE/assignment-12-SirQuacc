@@ -1,6 +1,5 @@
-#ifndef _DURATION_CLASS_HPP_
-#define _DURATION_CLASS_HPP_
-
+#ifndef _DURATION_HPP_
+#define _DURATION_HPP_
 
 class Duration{
 private:
@@ -12,13 +11,11 @@ private:
 public:
     Duration();
     ~Duration();
-    void setDuration(int t);
+    Duration(int t);
     int getDuration();
     bool tick();
-    bool addTick(int amount);
+    bool tick(int amount);
     void setAlarm(int t);
-
-    void startTimer();
 };
 
 #endif

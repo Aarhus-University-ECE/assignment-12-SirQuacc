@@ -21,7 +21,7 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{ %frame=tb,
-  language=C,
+  language=C++,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
@@ -38,9 +38,9 @@
 }
 
 
-\title{Week 11 Programming Assignment}
+\title{Week 12 Programming Assignment}
 \author{Steffen Petersen | au722120}
-\date{November 21st 2022}
+\date{November 28th 2022}
 
 \begin{document}
 %\tableofcontents
@@ -48,84 +48,42 @@
 \maketitle
 \vspace{5pt}
 \noindent Here is the link for my repository, in which you will find all the edited code files and such.\\
-\url{https://github.com/Aarhus-University-ECE/assignment-11-SirQuacc}
+\url{https://github.com/Aarhus-University-ECE/assignment-12-SirQuacc}
 \section{}
-\includegraphics[width=\linewidth, keepaspectratio=true]{task1}
+\includegraphics[width=\linewidth, keepaspectratio=true]{task1a}
 \vspace{2pt}\\
-We know per definition that the factorial of 1, is 1, and we can confirm that if n=1 in the function, it will pass the assert,
-escape the if and enter the else, which returns 1. Thus the base-case of the program, for n=1, must be correct.\\
-We also know that other factorials of natural numbers, are the given number n, times all of its previous numbers, until 1, i.e.:\\
-$n \cdot (n-1) \cdot (n-2) \cdot ... \cdot 2 \cdot 1$\\
-The inductive step of the function is to return $n \cdot fact(n-1)$, meaning if we assume $fact(n-1)$ is correct, multiplying this
-by n, will also be correct. And since the base case is correct, we know that n=2 is also correct, and since n=2 is correct n=3 must also be.\\
-We could continue this, theoretically, for any positive natural number. This, in combination with seeing that the recursion calls 
-the function correctly with $fact(n-1)$, means the whole function is correct. Because the $fact(n-1)$ step ensures we will reach our
-base-case of n=1 eventually.
+All of the code and bits can be found in the repository at src/duration.cpp and include/duration.hpp and the tests are found in /tests/src/tests.cpp\\
+That said, the remainder of the task descriptions don't make sense to include here, so instead I've included the pdf for those
+in text/Assignment\_Week12.pdf
+\\
 
-
-\section{}
-\includegraphics[width=\linewidth, keepaspectratio=true]{task2}
-\vspace{2pt}
-Below is the recursive function, it can also be found in sumn.c
+\noindent On the next page is the duration.hpp file, the rest can be found as mentioned in the repo.
+\pagebreak
 \begin{lstlisting}
-  int sumn (int n)
-  {
-      assert(n >= 1);
-      if(n == 1){ // Base case
-          return 1; //2*1-1 = 1
-      }
-      else{
-          return 2*n-1 + sumn(n-1); //Recursive step 2*n-1 + 2*(n-1)-1 and so on.
-      }
-  }
+  #ifndef _DURATION_HPP_
+  #define _DURATION_HPP_
+  
+  class Duration{
+  private:
+      int time;
+      int alarm;
+      bool alarmHasBeenSet;
+      bool checkAndUpdateAlarm();
+  
+  public:
+      Duration();
+      ~Duration();
+      Duration(int t);
+      int getDuration();
+      bool tick();
+      bool tick(int amount);
+      void setAlarm(int t);
+  };
+  
+  #endif
 \end{lstlisting}
 
 
-\section{}
-\includegraphics[width=\linewidth, keepaspectratio=true]{task3} 
-The code for these can be seen below, and can be found in sum.c
-\subsection*{a}
-\begin{lstlisting}
-  int sumtail (int n, int total)
-  {
-      assert(n >= 1);
-      if(n > 1){
-        return sumtail(n-1, n + total); //For n's above 1, update the running total by adding n, and re-call func with n-1
-      } else
-          return 1 + total; //Base case, when reached, return 1 + running total
-  }
-\end{lstlisting}
-\subsection*{b}
-\begin{lstlisting}
-  int sumwhile (int n)
-  {
-    assert(n >= 1);
-    int r = 0; //Sum variable to return
-    while(n > 0){ //Run loop n times (subtracting 1 each time)
-      r+=n; //Add current n value to result variable
-      n--;
-    }
-    return r; 
-  }
-\end{lstlisting}
-
-
-\section{}
-\includegraphics[width=\linewidth, keepaspectratio=true]{task4}
-The tail-recursive function is seen below, using p and pp as running total inputs, starting at the second and first values of the sequence (1 and 0).\\
-The function can be found in fib.c
-\begin{lstlisting}
-  int fib (int n, int p, int pp)
-  {
-      assert (n >= 1);
-      if(n == 1){
-          return pp; //If input is simply 1, return pp, should be 0.
-      } else if(n == 2){
-          return p; //If input is 2 (can happen recursively), return the new p value
-      } else 
-          return fib(n-1, pp + p, p); //If we want a number in the sequence later than 2, call fib again with updated p and pp as running sums.
-  }
-\end{lstlisting}
 
 
 \end{document}
